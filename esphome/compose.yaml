@@ -1,0 +1,14 @@
+services:
+  esphome:
+    image: esphome/esphome:2026.2
+    container_name: esphome
+    restart: unless-stopped
+    network_mode: host  # So it can find devices on your local network
+    privileged: true    # Required for USB serial access
+    volumes:
+       - /home/calebh/app-data/esphome:/config
+       - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev:/dev # just map the whole /dev folder so we have access to any usb device that's plugged in
+    environment:
+      - TZ=America/New_York  # Change to your timezone

@@ -1,0 +1,49 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_RUNNERS_ENABLED=true
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - TZ=${GENERIC_TIMEZONE}
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+      - ./local-files:/files
+    networks:
+      traefik:
+    labels:
+    - "traefik.enable=true"
+    - "traefik.docker.network=traefik"
+      # HTTP
+    - "traefik.http.routers.n8n.rule=Host(`n8n.iot.husovich.com`)"
+    - "traefik.http.routers.n8n.entrypoints=http"
+    - "traefik.http.routers.n8n.service=n8n"
+    - "traefik.http.routers.n8n.middlewares=traefik-https-redirect"
+    - "traefik.http.routers.n8n.middlewares=n8n-headers"
+      # HTTP Redirect
+    - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+    - "traefik.http.middlewares.redirect-https.redirectScheme.permanent=true"
+      # HTTPS
+    - "traefik.http.routers.n8n-secure.rule=Host(`n8n.iot.husovich.com`)"
+    - "traefik.http.routers.n8n-secure.entrypoints=https"
+    - "traefik.http.routers.n8n-secure.service=n8n"
+    - "traefik.http.routers.n8n-secure.tls=true"
+    - "traefik.http.routers.n8n-secure.tls.certresolver=myresolver"
+      # Load Balancer
+    - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+    - "traefik.http.services.n8n.loadbalancer.passhostheader=true"
+    - "traefik.http.services.n8n.loadbalancer.responseforwarding.flushinterval=1ms"
+      # Websockets
+    - "traefik.http.middlewares.n8n-headers.headers.customrequestheaders.X-Forwarded-Proto=https"
+    - "traefik.http.middlewares.n8n-headers.headers.customresponseheaders.X-Forwarded-Proto=https"
+
+networks:
+  traefik:

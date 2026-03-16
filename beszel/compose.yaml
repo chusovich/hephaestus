@@ -1,0 +1,5 @@
+services:
+  beszel-agent:
+    extends:
+      file: ../containers/beszel-agent.yaml
+      service: beszel-agent
