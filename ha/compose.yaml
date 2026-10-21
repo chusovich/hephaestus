@@ -1,7 +1,7 @@
 services:
   homeassistant:
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:2026.6"
+    image: "ghcr.io/home-assistant/home-assistant:2026.10"
     volumes:
       - /home/calebh/app-data/ha:/config
       - /etc/localtime:/etc/localtime:ro
