@@ -40,27 +40,6 @@
     initialPassword = "password";
    };
 
-  # Tailscale
-  services.tailscale = {
-    enable = true;
-    authKeyFile = "/home/calebh/secrets/tailscale_key";
-    extraUpFlags = [
-      "--reset"
-      "--ssh"
-      "--advertise-tags tag:server"
-    ];
-  };
-
-  # Build on a remote host since the pi is underpowered
-  nix.distributedBuilds = true;
-  nix.buildMachines = [
-    {
-      hostName = "192.168.10.10";
-      sshUser = "builder";
-      system = "aarch64-linux";
-    }
-  ];
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

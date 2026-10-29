@@ -1,3 +1,0 @@
-[submodule "containers"]
-	path = containers
-	url = git@github.com:chusovich/containers.git
