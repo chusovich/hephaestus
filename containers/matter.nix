@@ -5,6 +5,7 @@
     containers.matter-server = {
       image = "ghcr.io/matter-js/matterjs-server:1.6.0";
       autoStart = true;
+      podman.user = "admin";
       volumes = [ "/var/lib/matterjs-server:/data" ];
       log-driver = "k8s-file";
       environment = {

@@ -1,22 +1,44 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-core",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792507013,
+        "narHash": "sha256-8tKjSQajD3mUND1GaAuaWTcuyUpgcGsh5V+l4ibzC7U=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "5e5b88a0c8e56f291a108c2fe9934054d9745b2e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "nix-core": {
       "inputs": {
+        "agenix": "agenix",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1795450047,
-        "narHash": "sha256-u1OxZb2ImKgd5B+CuXyFTNY+zT/OEKWOO4JuDclNMbE=",
+        "lastModified": 1795457416,
+        "narHash": "sha256-urt1WFSiKPPsJndXuLH+zuFf+9VKw9/t1bN4hlobmT8=",
         "owner": "chusovich",
         "repo": "nix-core",
-        "rev": "27e1a2beb5039e7ffbde81616bbc69df47f774e7",
+        "rev": "ae1e8ec754463a01a4ef281c69d7b897445c1cf0",
         "type": "github"
       },
       "original": {
         "owner": "chusovich",
-        "ref": "v2026.10.2",
+        "ref": "v2026.11.0",
         "repo": "nix-core",
         "type": "github"
       }

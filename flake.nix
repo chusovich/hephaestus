@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-core = {
-      url = "github:chusovich/nix-core/v2026.10.2";
+      url = "github:chusovich/nix-core/v2026.11.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -12,9 +12,7 @@
       system = "x86_64-linux";
 
       modules = [
-        nix-core.nixosModules.common
-        nix-core.nixosModules.tailscale
-        nix-core.nixosModules.ai
+        nix-core.nixosModules.default
         ./configuration.nix
         ./containers/home-assistant.nix
         ./containers/matter.nix
