@@ -15,8 +15,9 @@
         nix-core.nixosModules.default
         nix-core.nixosModules.ai
         ./configuration.nix
+        ./containers/matter.nix
+        ./containers/esphome.nix
       ];
     };
   };
 }
-

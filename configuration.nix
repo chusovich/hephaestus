@@ -14,6 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
+  # Use Docker for NixOS-managed OCI containers.
+  virtualisation.oci-containers.backend = "docker";
+  
   # Networking
   networking = {
     firewall.enable = false;
