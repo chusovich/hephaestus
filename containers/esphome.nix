@@ -13,9 +13,8 @@
     };
     extraOptions = [
       "--network=host"
-      "--privileged"
-      "--device=/dev:/dev"
     ];
+    log-driver = "k8s-file";
   };
 
   systemd.tmpfiles.rules = [

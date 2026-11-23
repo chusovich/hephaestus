@@ -5,9 +5,9 @@ Home automation server running NixOS.
 ## ESPHome
 
 ESPHome is managed by the `virtualisation.oci-containers` NixOS module in
-[`containers/esphome.nix`](./containers/esphome.nix), using Docker with the
+[`containers/esphome.nix`](./containers/esphome.nix), using Podman with the
 `esphome/esphome:2026.10` image. It uses host networking for LAN device discovery
-and privileged access for USB flashing.
+and does not need USB device access.
 
 ESPHome configuration is stored at `/var/lib/esphome` on the host (`/config`
 in the container). Its dashboard is available at:
@@ -23,8 +23,8 @@ needed.
 ## Matter Server
 
 The Matter.js Server is managed by the `virtualisation.oci-containers` NixOS
-module in [`containers/matter.nix`](./containers/matter.nix), using Docker with
-the `ghcr.io/matter-js/matterjs-server:stable` image. It uses host networking
+module in [`containers/matter.nix`](./containers/matter.nix), using Podman with
+the `ghcr.io/matter-js/matterjs-server:1.6.0` image. It uses host networking
 so Matter multicast discovery and IPv6 traffic can reach the host's LAN interface.
 
 The server persists its fabric and controller data at

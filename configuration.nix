@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -14,8 +10,32 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  # Use Docker for NixOS-managed OCI containers.
-  virtualisation.oci-containers.backend = "docker";
+  # Use Podman for NixOS-managed OCI containers. Keep Docker available for
+  # separately managed Compose stacks.
+  virtualisation = {
+    oci-containers.backend = "podman";
+
+    docker = {
+      enable = true;
+      logDriver = "local";
+      daemon.settings."log-opts" = {
+        "max-size" = "10m";
+        "max-file" = "3";
+      };
+    };
+
+    containers.containersConf.settings.containers = {
+      log_driver = "k8s-file";
+      log_size_max = 10485760;
+    };
+  };
+
+  # Compressed in-memory swap avoids writing swapped secrets to the unencrypted
+  # root filesystem. The limit is 50% of physical memory.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
   
   # Networking
   networking = {

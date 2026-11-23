@@ -1,12 +1,12 @@
 { ... }:
 
 {
-  # Backend is podman by default
   virtualisation.oci-containers = {
     containers.matter-server = {
-      image = "ghcr.io/matter-js/matterjs-server:stable";
+      image = "ghcr.io/matter-js/matterjs-server:1.6.0";
       autoStart = true;
       volumes = [ "/var/lib/matterjs-server:/data" ];
+      log-driver = "k8s-file";
       environment = {
         LISTEN_ADDRESS = "192.168.10.167";
         PRIMARY_INTERFACE = "enp1s0";
