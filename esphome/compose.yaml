@@ -1,6 +1,6 @@
 services:
   esphome:
-    image: esphome/esphome:2026.6
+    image: esphome/esphome:2026.10
     container_name: esphome
     restart: unless-stopped
     network_mode: host  # So it can find devices on your local network
