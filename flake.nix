@@ -13,6 +13,7 @@
 
       modules = [
         nix-core.nixosModules.default
+        nix-core.nixosModules.ai
         ./configuration.nix
       ];
     };

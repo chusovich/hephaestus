@@ -31,11 +31,11 @@ dry:
 
 # Update all flake inputs
 update:
-    nix flake update
+    sudo nix flake update
 
 # Update a specific flake input (e.g. `just update-input nixpkgs`)
 update-input input:
-    nix flake lock --update-input {{ input }}
+    sudo nix flake lock --update-input {{ input }}
 
 # Format the repository using the configured formatter
 fmt:
