@@ -12,9 +12,11 @@
       system = "x86_64-linux";
 
       modules = [
-        nix-core.nixosModules.default
+        nix-core.nixosModules.common
+        nix-core.nixosModules.tailscale
         nix-core.nixosModules.ai
         ./configuration.nix
+        ./containers/home-assistant.nix
         ./containers/matter.nix
         ./containers/esphome.nix
       ];

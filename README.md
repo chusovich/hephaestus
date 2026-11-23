@@ -2,12 +2,51 @@
 
 Home automation server running NixOS.
 
+## Home Assistant
+
+Home Assistant is managed by the `virtualisation.oci-containers` NixOS module in
+[`containers/home-assistant.nix`](./containers/home-assistant.nix), using Podman
+with the `ghcr.io/home-assistant/home-assistant:2026.11.2` image. It uses host
+networking and has read-only access to the host D-Bus socket.
+
+Home Assistant configuration and state are stored at `/var/lib/home-assistant`
+on the host (`/config` in the container). The service is available at:
+
+```text
+http://192.168.10.167:8123
+```
+
+### Migrating from Compose
+
+Before activating the NixOS-managed service, create and verify a Home Assistant
+backup. Stop the Compose service cleanly, copy the complete configuration
+directory (including hidden files and `.storage`), then test the NixOS
+configuration. Check that `/var/lib/home-assistant` is empty or contains only
+data you have separately backed up; do not blindly merge unrelated state:
+
+```sh
+cd ha
+docker compose down --timeout 60
+sudo install -d -m 0750 -o root -g root /var/lib/home-assistant
+sudo cp -a /home/calebh/app-data/ha/. /var/lib/home-assistant/
+cd ..
+just build
+just test
+```
+
+Verify Home Assistant and its integrations before applying the configuration
+permanently with `just switch`. Do not start the Compose service while the
+NixOS-managed container is running. Keep the original data directory and backup
+until the migration is confirmed. The Compose file is retained only as a
+rollback reference; before using it, stop the NixOS-managed service and restore
+a backup compatible with the Compose image.
+
 ## ESPHome
 
 ESPHome is managed by the `virtualisation.oci-containers` NixOS module in
 [`containers/esphome.nix`](./containers/esphome.nix), using Podman with the
-`esphome/esphome:2026.10` image. It uses host networking for LAN device discovery
-and does not need USB device access.
+`docker.io/esphome/esphome:2026.11.0` image. It uses host networking for LAN
+device discovery and does not need USB device access.
 
 ESPHome configuration is stored at `/var/lib/esphome` on the host (`/config`
 in the container). Its dashboard is available at:

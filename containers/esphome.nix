@@ -2,7 +2,7 @@
 
 {
   virtualisation.oci-containers.containers.esphome = {
-    image = "esphome/esphome:2026.10";
+    image = "docker.io/esphome/esphome:2026.11.0";
     autoStart = true;
     volumes = [
       "/var/lib/esphome:/config"
