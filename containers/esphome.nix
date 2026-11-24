@@ -14,7 +14,6 @@
     extraOptions = [
       "--network=host"
     ];
-    log-driver = "k8s-file";
   };
 
   systemd.tmpfiles.rules = [

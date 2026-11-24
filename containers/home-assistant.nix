@@ -17,7 +17,6 @@
       "--privileged"
       "--stop-timeout=60"
     ];
-    log-driver = "k8s-file";
   };
 
   systemd.tmpfiles.rules = [

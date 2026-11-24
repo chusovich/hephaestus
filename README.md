@@ -5,7 +5,7 @@ Home automation server running NixOS.
 ## Home Assistant
 
 Home Assistant is managed by the `virtualisation.oci-containers` NixOS module in
-[`containers/home-assistant.nix`](./containers/home-assistant.nix), using Podman
+[`containers/home-assistant.nix`](./containers/home-assistant.nix), using Docker
 with the `ghcr.io/home-assistant/home-assistant:2026.11.2` image. It uses host
 networking and has read-only access to the host D-Bus socket.
 
@@ -44,7 +44,7 @@ a backup compatible with the Compose image.
 ## ESPHome
 
 ESPHome is managed by the `virtualisation.oci-containers` NixOS module in
-[`containers/esphome.nix`](./containers/esphome.nix), using Podman with the
+[`containers/esphome.nix`](./containers/esphome.nix), using Docker with the
 `docker.io/esphome/esphome:2026.11.0` image. It uses host networking for LAN
 device discovery and does not need USB device access.
 
@@ -62,7 +62,7 @@ needed.
 ## Matter Server
 
 The Matter.js Server is managed by the `virtualisation.oci-containers` NixOS
-module in [`containers/matter.nix`](./containers/matter.nix), using Podman with
+module in [`containers/matter.nix`](./containers/matter.nix), using Docker with
 the `ghcr.io/matter-js/matterjs-server:1.6.0` image. It uses host networking
 so Matter multicast discovery and IPv6 traffic can reach the host's LAN interface.
 

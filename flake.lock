@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795457416,
-        "narHash": "sha256-urt1WFSiKPPsJndXuLH+zuFf+9VKw9/t1bN4hlobmT8=",
+        "lastModified": 1795486784,
+        "narHash": "sha256-VYkI56moB37kcama/IsFj1m23NqrQ77ImpUDTxULZGA=",
         "owner": "chusovich",
         "repo": "nix-core",
-        "rev": "ae1e8ec754463a01a4ef281c69d7b897445c1cf0",
+        "rev": "ca611da24dfb3d0cda5d4266fe0430c2cdbf7e9c",
         "type": "github"
       },
       "original": {

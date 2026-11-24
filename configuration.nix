@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -10,11 +10,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  # Use Podman for NixOS-managed OCI containers. Keep Docker available for
-  # separately managed Compose stacks.
+  # Use Docker for NixOS-managed OCI containers and Compose stacks.
   virtualisation = {
-    oci-containers.backend = "podman";
-
     docker = {
       enable = true;
       logDriver = "local";
@@ -24,11 +21,12 @@
       };
     };
 
-    containers.containersConf.settings.containers = {
-      log_driver = "k8s-file";
-      log_size_max = 10485760;
-    };
   };
+
+  # The nix-core Beszel module uses Podman's "newer" pull mode, which Docker
+  # does not support. "always" is Docker's equivalent for checking the tag.
+  virtualisation.oci-containers.containers.beszel-agent.pull =
+    lib.mkForce "always";
 
   # Compressed in-memory swap avoids writing swapped secrets to the unencrypted
   # root filesystem. The limit is 50% of physical memory.
